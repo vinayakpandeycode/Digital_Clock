@@ -7,3 +7,5 @@ Excited to share my latest project – a beautiful Digital Clock with an Alarm f
  ✅ Responsive Design (HTML, CSS, JavaScript)
 This project enhances user experience with a stylish and functional timekeeping solution. Try it out and let me know your feedback! 💬
 🔗 GitHub Repository:https://vinayakpandeycode.github.io/Digital_Clock/
+
+![Image](https://github.com/user-attachments/assets/f619ac1b-59be-4e51-836d-f624c1c6455d)
