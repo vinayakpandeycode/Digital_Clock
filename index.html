@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock with Alarm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+
+        .clock-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .clock {
+            font-size: 70px;
+            font-weight: bold;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+        }
+
+        .date {
+            font-size: 20px;
+            margin-top: 10px;
+            color: white;
+        }
+
+        .alarm-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input {
+            width: 120px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #00ffcc;
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #009988;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock-container">
+        <div class="clock" id="clock">00:00:00</div>
+        <div class="date" id="date">Monday, 01 January 2024</div>
+    </div>
+
+    <div class="alarm-container">
+        <h2>Set Alarm ⏰</h2>
+        <input type="time" id="alarmTime">
+        <button onclick="setAlarm()">Set Alarm</button>
+        <p id="alarmMessage"></p>
+    </div>
+
+    <script>
+        let alarmTime = null;
+        let alarmSet = false;
+
+        function updateClock() {
+            let now = new Date();
+            let hours = now.getHours().toString().padStart(2, '0');
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            let seconds = now.getSeconds().toString().padStart(2, '0');
+            let day = now.toLocaleString('en-us', { weekday: 'long' });
+            let date = now.getDate().toString().padStart(2, '0');
+            let month = now.toLocaleString('en-us', { month: 'long' });
+            let year = now.getFullYear();
+
+            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('date').innerText = `${day}, ${date} ${month} ${year}`;
+
+            if (alarmSet && `${hours}:${minutes}` === alarmTime) {
+                alert("⏰ Wake Up! Your Alarm is Ringing!");
+                alarmSet = false; // Reset alarm after ringing
+                document.getElementById('alarmMessage').innerText = "Alarm Stopped!";
+            }
+        }
+
+        function setAlarm() {
+            alarmTime = document.getElementById('alarmTime').value;
+            if (alarmTime) {
+                alarmSet = true;
+                document.getElementById('alarmMessage').innerText = `Alarm set for ${alarmTime}`;
+            } else {
+                alert("Please select a valid time for the alarm.");
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Run initially
+    </script>
+
+</body>
+</html>
